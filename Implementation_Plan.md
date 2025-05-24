@@ -61,7 +61,42 @@ Objective: Create a comprehensive, validated form system for users to input all 
    - Implement tagging system for easy skill categorization
    - Include project showcase with links to GitHub, demos, or portfolios
 
-### Task 1.3 - Agent_Frontend_Dev: HTML Resume Rendering Engine
+### Task 1.3 - Agent_Auth_Dev: Authentication System Setup
+Objective: Implement user authentication using Supabase with both email/password and Google login.
+
+1. Configure Supabase Auth with email/password and Google OAuth.
+   - Set up Supabase authentication configuration with email/password provider
+   - Configure Google OAuth provider in Supabase dashboard
+   - Add necessary environment variables for OAuth client credentials
+   - Test authentication providers in development environment
+
+2. Create login and sign-up pages using Shadcn UI components.
+   - Build login page with email/password form using Shadcn Form components
+   - Create sign-up page with proper validation and error handling
+   - Implement Google sign-in button with proper OAuth flow
+   - Add form validation using Zod schemas and react-hook-form integration
+   - Include password reset functionality and email verification flows
+
+3. Redirect unauthenticated users to the login screen on root route (/).
+   - Implement route protection middleware for authenticated routes
+   - Configure automatic redirects for unauthenticated users accessing protected pages
+   - Set up proper routing logic to redirect to intended destination after login
+   - Create public vs protected route definitions
+
+4. Add authentication context provider to the app layout.
+   - Implement React Context for authentication state management
+   - Create authentication provider component with session handling
+   - Add user state management (loading, authenticated, user data)
+   - Integrate with existing Supabase client configuration from Task 1.1
+
+5. Implement error handling, loading states, and session management.
+   - Create comprehensive error handling for authentication failures
+   - Implement loading states for login, signup, and session checks
+   - Add session persistence and automatic token refresh
+   - Create logout functionality with proper cleanup
+   - Implement authentication guards for protected components and pages
+
+### Task 1.4 - Agent_Frontend_Dev: HTML Resume Rendering Engine
 Objective: Create a sophisticated resume rendering system that converts structured form data into professionally styled HTML output with multiple template options.
 
 1. Design resume template system architecture.
@@ -91,7 +126,7 @@ Objective: Create a sophisticated resume rendering system that converts structur
    - Implement zoom controls for detailed preview inspection
    - Include mobile preview mode for responsive design verification
 
-### Task 1.4 - Agent_Frontend_Dev: PDF Export System
+### Task 1.5 - Agent_Frontend_Dev: PDF Export System
 Objective: Implement robust PDF generation and export functionality using react-to-print with proper formatting and download capabilities.
 
 1. Set up react-to-print library integration.
@@ -118,7 +153,7 @@ Objective: Implement robust PDF generation and export functionality using react-
    - Create export history and version tracking for user convenience
    - Include print settings customization (margins, orientation)
 
-### Task 1.5 - Agent_Backend_Dev: Data Persistence & User Management
+### Task 1.6 - Agent_Backend_Dev: Data Persistence & User Management
 Objective: Implement secure user authentication, resume data storage, and retrieval using Supabase with proper data modeling and security.
 
 1. Design database schema for resume storage.
@@ -145,7 +180,7 @@ Objective: Implement secure user authentication, resume data storage, and retrie
    - Implement data sanitization to prevent XSS and injection attacks
    - Create audit logging for data changes and access patterns
 
-### Task 1.6 - Agent_UI_Dev: Design System & Screen Implementation
+### Task 1.7 - Agent_UI_Dev: Design System & Screen Implementation
 Objective: Implement the comprehensive UI design system and create all application screens following the established design patterns, component library, and responsive strategy.
 
 1. Establish design system foundation and layout components.
@@ -164,7 +199,7 @@ Objective: Implement the comprehensive UI design system and create all applicati
 
 3. Integrate UI design with existing form components.
    - Apply design system styling to Task 1.2 resume form components (tabs, cards, form fields)
-   - Implement split-view layout for resume preview integration with Task 1.3 rendering
+   - Implement split-view layout for resume preview integration with Task 1.4 rendering
    - Create responsive tabbed interface for resume sections with completion indicators
    - Add consistent styling for dynamic list components (experience, education, skills, projects)
    - Integrate voice input UI patterns with microphone buttons and recording states
@@ -176,7 +211,7 @@ Objective: Implement the comprehensive UI design system and create all applicati
    - Create consistent modal patterns using Shadcn Dialog components
    - Test and optimize responsive sidebar behavior (collapse to overlay on mobile)
 
-### Task 1.7 - Agent_QA_Tester: Testing & Quality Assurance
+### Task 1.8 - Agent_QA_Tester: Testing & Quality Assurance
 Objective: Ensure application reliability, performance, and user experience through comprehensive testing and optimization.
 
 1. Set up testing infrastructure.

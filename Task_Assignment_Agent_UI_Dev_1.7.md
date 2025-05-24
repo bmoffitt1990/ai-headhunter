@@ -31,7 +31,7 @@
 
 ## 3. Task Assignment
 
-**Reference Implementation Plan:** This assignment corresponds to `Phase 1, Task 1.6 - Agent_UI_Dev: Design System & Screen Implementation` in the Implementation Plan.
+**Reference Implementation Plan:** This assignment corresponds to `Phase 1, Task 1.7 - Agent_UI_Dev: Design System & Screen Implementation` in the Implementation Plan.
 
 **Objective:** Implement the comprehensive UI design system and create all application screens following the established design patterns, component library, and responsive strategy.
 
@@ -246,7 +246,7 @@
 
 ## 7. Memory Bank Logging Instructions
 
-Upon successful completion of this task, you **must** log your work comprehensively to the project's `Memory/Phase_1_Foundation/Task_1.6_UI_Design_Implementation_Log.md` file.
+Upon successful completion of this task, you **must** log your work comprehensively to the project's `Memory/Phase_1_Foundation/Task_1.7_UI_Design_Implementation_Log.md` file.
 
 **Format Adherence:** Ensure your log includes:
 - A reference to the assigned task in the Implementation Plan

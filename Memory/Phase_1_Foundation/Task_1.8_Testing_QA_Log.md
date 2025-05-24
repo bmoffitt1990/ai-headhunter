@@ -1,9 +1,9 @@
-# APM Task Log: HTML Resume Rendering Engine
+# APM Task Log: Testing & Quality Assurance
 
 Project Goal: Build a B2C AI Headhunter web app starting with a Resume Builder module that allows users to input resume details via structured forms, render styled HTML output, and export to PDF, serving as the foundation for future AI-driven resume customization.
 Phase: Phase 1: Foundation & Core Resume Builder
-Task Reference in Plan: ### Task 1.3 - Agent_Frontend_Dev: HTML Resume Rendering Engine
-Assigned Agent(s) in Plan: Agent_Frontend_Dev
+Task Reference in Plan: ### Task 1.8 - Agent_QA_Tester: Testing & Quality Assurance
+Assigned Agent(s) in Plan: Agent_QA_Tester
 Log File Creation Date: 2024-12-19
 
 ---
