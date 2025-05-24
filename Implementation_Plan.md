@@ -145,7 +145,38 @@ Objective: Implement secure user authentication, resume data storage, and retrie
    - Implement data sanitization to prevent XSS and injection attacks
    - Create audit logging for data changes and access patterns
 
-### Task 1.6 - Agent_QA_Tester: Testing & Quality Assurance
+### Task 1.6 - Agent_UI_Dev: Design System & Screen Implementation
+Objective: Implement the comprehensive UI design system and create all application screens following the established design patterns, component library, and responsive strategy.
+
+1. Establish design system foundation and layout components.
+   - Implement design tokens in `tailwind.config.js` (colors, typography, spacing as specified)
+   - Create the AppSidebar component using Shadcn Sidebar with custom navigation menu items
+   - Build responsive header component with right-aligned actions and clean border styling
+   - Implement main layout wrapper with proper responsive grid and mobile-first breakpoints
+   - Set up print-optimized CSS classes for resume rendering
+
+2. Build core application screens with design patterns.
+   - Create Dashboard screen with metrics cards, activity feed, and data visualization patterns
+   - Implement Onboarding flow with multi-step forms, progress indicators, and step navigation
+   - Build Application Questions screen with consistent form patterns and voice input integration
+   - Create Feedback/History screen with data tables, filtering, and activity tracking displays
+   - Implement consistent micro-interactions, hover states, and loading animations
+
+3. Integrate UI design with existing form components.
+   - Apply design system styling to Task 1.2 resume form components (tabs, cards, form fields)
+   - Implement split-view layout for resume preview integration with Task 1.3 rendering
+   - Create responsive tabbed interface for resume sections with completion indicators
+   - Add consistent styling for dynamic list components (experience, education, skills, projects)
+   - Integrate voice input UI patterns with microphone buttons and recording states
+
+4. Implement responsive design and accessibility features.
+   - Ensure mobile-first responsive breakpoints work across all screens
+   - Implement touch-friendly interface elements with proper sizing (minimum 44px buttons)
+   - Add proper ARIA labels, semantic HTML structure, and keyboard navigation support
+   - Create consistent modal patterns using Shadcn Dialog components
+   - Test and optimize responsive sidebar behavior (collapse to overlay on mobile)
+
+### Task 1.7 - Agent_QA_Tester: Testing & Quality Assurance
 Objective: Ensure application reliability, performance, and user experience through comprehensive testing and optimization.
 
 1. Set up testing infrastructure.
