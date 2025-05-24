@@ -1,133 +1,145 @@
-# AI Resume Builder
+# AI Headhunter
 
-A modern resume builder application built with Next.js, TypeScript, Tailwind CSS, and Shadcn/UI.
+A modern resume builder application powered by AI, built with Next.js, TypeScript, and Supabase.
 
 ## Features
 
-- ⚡ Built with Next.js 15 (App Router)
-- 🎨 Styled with Tailwind CSS
-- 🧩 UI components from Shadcn/UI
-- 🌙 Dark mode support
-- 📱 Responsive design
-- 🔧 TypeScript for type safety
+- **AI-Powered Resume Generation**: Leverage artificial intelligence to create compelling resume content
+- **Professional Templates**: Choose from a variety of modern, ATS-friendly templates
+- **Real-time Editing**: Edit your resume with live preview
+- **Multiple Export Formats**: Download as PDF, Word document, or share online
+- **User Authentication**: Secure user accounts with Supabase Auth
+- **Cloud Storage**: Save and sync your resumes across devices
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, Shadcn/ui
+- **Backend**: Supabase (Database, Auth, Storage)
+- **Deployment**: Vercel
+- **Form Handling**: React Hook Form with Zod validation
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.0 or later
-- npm, yarn, or pnpm
+- Node.js 18+ 
+- npm or yarn
+- Supabase account
 
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd ai-headhunter
-   ```
+```bash
+git clone <repository-url>
+cd ai-headhunter
+```
 
 2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## Development
-
-### Project Structure
-
-```
-ai-headhunter/
-├── src/
-│   ├── app/              # App Router pages and layouts
-│   ├── components/       # Reusable components
-│   │   └── ui/          # Shadcn/UI components
-│   └── lib/             # Utility functions
-├── public/              # Static assets
-├── package.json
-└── README.md
+```bash
+npm install
 ```
 
-### Available Scripts
+3. Set up environment variables:
+Create a `.env.local` file in the root directory with the following variables:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+See [docs/environment-setup.md](docs/environment-setup.md) for detailed setup instructions.
+
+4. Set up the database:
+- Run the SQL commands in `docs/database-schema.sql` in your Supabase SQL editor
+
+5. Start the development server:
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Project Structure
+
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # Reusable UI components
+│   ├── ui/             # Shadcn/ui components
+│   └── shared/         # Shared layout components
+├── features/           # Feature-based modules
+│   └── resume/         # Resume-related components
+│       ├── components/ # Resume-specific components
+│       ├── hooks/      # Resume-related hooks
+│       ├── types/      # Resume type definitions
+│       └── utils/      # Resume utility functions
+├── lib/                # Utility libraries
+│   ├── supabase/       # Supabase client and auth
+│   ├── validations/    # Zod schemas
+│   └── utils/          # Helper functions
+├── hooks/              # Custom React hooks
+└── types/              # TypeScript type definitions
+```
+
+## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript compiler check
+- `npm run lint:fix` - Fix ESLint errors
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run type-check` - Run TypeScript type checking
 
-### Adding New Components
+## Configuration
 
-To add new Shadcn/UI components:
+### TypeScript
+- Strict mode enabled with additional safety checks
+- Path aliases configured for clean imports
+- Comprehensive compiler options for Next.js App Router
 
-```bash
-npx shadcn@latest add [component-name]
-```
+### ESLint & Prettier
+- Next.js TypeScript preset
+- Prettier integration for consistent formatting
+- Custom rules for code quality
+
+### Tailwind CSS
+- Custom design tokens and spacing
+- Dark mode support
+- Component variants and animations
+- Optimized for Shadcn/ui components
+
+### Supabase Integration
+- Client and server-side configurations
+- Authentication context and providers
+- Row Level Security (RLS) policies
+- Type-safe database operations
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+The application is configured for deployment on Vercel with:
+- Automatic builds and deployments
+- Environment variable management
+- Performance optimizations
+- Custom domain support
 
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
+See [docs/deployment.md](docs/deployment.md) for detailed deployment instructions.
 
-2. Visit [vercel.com](https://vercel.com) and sign in
+## Documentation
 
-3. Click "New Project" and import your repository
-
-4. Configure your project:
-   - **Framework Preset**: Next.js
-   - **Root Directory**: `./` (if deploying from root)
-   - **Build Command**: `npm run build` (default)
-   - **Output Directory**: `.next` (default)
-
-5. Click "Deploy"
-
-Your application will be automatically deployed and you'll receive a URL to access it.
-
-### Deploy to Other Platforms
-
-The application can also be deployed to:
-- Netlify
-- Railway
-- Render
-- Any platform that supports Node.js
-
-For static export (if needed):
-```bash
-npm run build
-npm run export
-```
-
-## Environment Variables
-
-Create a `.env.local` file in the root directory for environment-specific variables:
-
-```env
-# Add your environment variables here
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
+- [Environment Setup](docs/environment-setup.md) - Environment variables and Supabase configuration
+- [Database Schema](docs/database-schema.sql) - Complete database setup
+- [Deployment Guide](docs/deployment.md) - Step-by-step deployment instructions
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+4. Run tests and linting: `npm run lint && npm run type-check`
+5. Format code: `npm run format`
+6. Submit a pull request
 
 ## License
 

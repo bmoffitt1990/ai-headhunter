@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+description: "Use zod + react-hook-form for all form validation—never rely on custom validation logic inline."
+content: |
+  - Use `zod` for schema-based validation
+  - Integrate zod with `react-hook-form` using `zodResolver`
+  - Define form schemas near the component, or in a dedicated `schemas/` folder if reused
+  - Prefer type-safe, declarative validation over manual input checks
+  - Never validate in event handlers—use schema + hook form
