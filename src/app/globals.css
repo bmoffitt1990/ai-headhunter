@@ -1,8 +1,10 @@
+/* Resume Template Styles */
+@import '../styles/resume-templates.css';
+@import '../styles/print.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 
 @layer base {
   :root {

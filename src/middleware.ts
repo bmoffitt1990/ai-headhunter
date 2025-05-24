@@ -10,6 +10,7 @@ const publicRoutes = [
   '/auth/callback',
   '/terms',
   '/privacy',
+  '/test-resume', // Public demo page for resume templates
   '/test-dashboard', // Temporary: bypass middleware for testing
   '/dashboard', // Use client-side auth protection instead
 ];

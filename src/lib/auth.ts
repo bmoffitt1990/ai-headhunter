@@ -67,9 +67,6 @@ export const signIn = async (email: string, password: string): Promise<AuthResul
       };
     }
 
-    // Double-check session is established
-    const { data: sessionCheck } = await supabase.auth.getSession();
-
     return {
       user: data.user,
       session: data.session,

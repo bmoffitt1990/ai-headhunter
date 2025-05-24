@@ -6,18 +6,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Loader2, User, Mail, Calendar, LogOut } from 'lucide-react';
+import { Suspense } from 'react';
 
-export default function DashboardPage() {
+function DashboardContent() {
   const { user, signOut, loading } = useAuth();
   const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted before using client-side features
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Client-side authentication protection
   useEffect(() => {
-    if (!loading && !user) {
+    if (mounted && !loading && !user) {
       router.push('/login?message=Please sign in to access the dashboard');
     }
-  }, [user, loading, router]);
+  }, [user, loading, router, mounted]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -32,6 +39,18 @@ export default function DashboardPage() {
       setIsSigningOut(false);
     }
   };
+
+  // Don't render anything until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
+          <p className="mt-2 text-sm text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -125,7 +144,7 @@ export default function DashboardPage() {
               <Button className="w-full" onClick={() => router.push('/resume')}>
                 Create Resume
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={() => router.push('/test-resume')}>
                 View Templates
               </Button>
               <Button variant="outline" className="w-full">
@@ -179,12 +198,12 @@ export default function DashboardPage() {
                 </Button>
               </div>
               <div>
-                <h3 className="font-medium mb-2">Explore Features</h3>
+                <h3 className="font-medium mb-2">Test Resume Templates</h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Discover all the features available to help you land your dream job.
+                  Explore our resume templates and see how they look with sample data.
                 </p>
-                <Button variant="outline">
-                  Learn More
+                <Button variant="outline" onClick={() => router.push('/test-resume')}>
+                  View Templates
                 </Button>
               </div>
             </div>
@@ -192,5 +211,22 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense 
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
+            <p className="mt-2 text-sm text-gray-600">Loading dashboard...</p>
+          </div>
+        </div>
+      }
+    >
+      <DashboardContent />
+    </Suspense>
   );
 } 
