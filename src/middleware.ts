@@ -12,6 +12,7 @@ const publicRoutes = [
   '/privacy',
   '/test-resume', // Public demo page for resume templates
   '/test-dashboard', // Temporary: bypass middleware for testing
+  '/test-pdf', // PDF export testing page
   '/dashboard', // Use client-side auth protection instead
 ];
 

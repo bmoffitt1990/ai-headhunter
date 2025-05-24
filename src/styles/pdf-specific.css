@@ -1,0 +1,292 @@
+/* PDF-specific styles for optimal print rendering */
+
+/* Page setup and margins */
+@page {
+  size: A4;
+  margin: 0.5in;
+}
+
+/* Ensure proper page breaks */
+.resume-template {
+  page-break-inside: avoid;
+  orphans: 3;
+  widows: 3;
+}
+
+.resume-section {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.resume-section-header {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Experience and education entries */
+.experience-entry,
+.education-entry,
+.project-entry {
+  page-break-inside: avoid;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Prevent orphaned headers */
+.section-title {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+/* Font optimization for PDF */
+.resume-template {
+  font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+  font-size: 11pt;
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+}
+
+/* Ensure proper text rendering */
+.resume-template * {
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Hide interactive elements in PDF */
+@media print {
+  .no-print,
+  .pdf-hide,
+  button,
+  .button,
+  input,
+  textarea,
+  select {
+    display: none !important;
+  }
+  
+  /* Ensure links are visible but not interactive */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /* Remove shadows and transitions for cleaner PDF */
+  * {
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* PDF-specific layout adjustments */
+.pdf-mode .resume-template {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* Optimize spacing for PDF */
+.pdf-mode .resume-section {
+  margin-bottom: 1.5rem;
+}
+
+.pdf-mode .resume-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Ensure proper font weights */
+.pdf-mode h1,
+.pdf-mode h2,
+.pdf-mode h3,
+.pdf-mode .font-bold {
+  font-weight: 600;
+}
+
+.pdf-mode .font-medium {
+  font-weight: 500;
+}
+
+/* Skills section optimization */
+.pdf-mode .skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pdf-mode .skill-item {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Contact information layout */
+.pdf-mode .contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pdf-mode .contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Ensure proper list formatting */
+.pdf-mode ul,
+.pdf-mode ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.pdf-mode li {
+  margin-bottom: 0.25rem;
+}
+
+/* Date formatting */
+.pdf-mode .date-range {
+  font-style: italic;
+  color: #666;
+}
+
+/* Company and position styling */
+.pdf-mode .company-name {
+  font-weight: 600;
+}
+
+.pdf-mode .position-title {
+  font-weight: 500;
+}
+
+/* Education styling */
+.pdf-mode .degree {
+  font-weight: 600;
+}
+
+.pdf-mode .institution {
+  font-weight: 500;
+}
+
+/* Project styling */
+.pdf-mode .project-name {
+  font-weight: 600;
+}
+
+.pdf-mode .project-tech {
+  font-style: italic;
+  color: #666;
+}
+
+/* Ensure proper spacing between sections */
+.pdf-mode .personal-info {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.pdf-mode .personal-info h1 {
+  font-size: 24pt;
+  margin-bottom: 0.5rem;
+}
+
+.pdf-mode .personal-info .contact-info {
+  justify-content: center;
+}
+
+/* Summary section */
+.pdf-mode .summary {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+/* Responsive adjustments for different paper sizes */
+@media print and (max-width: 8.5in) {
+  .pdf-mode .resume-template {
+    font-size: 10pt;
+  }
+  
+  .pdf-mode .personal-info h1 {
+    font-size: 20pt;
+  }
+}
+
+/* Letter size adjustments */
+@page letter {
+  size: 8.5in 11in;
+  margin: 0.5in;
+}
+
+/* Legal size adjustments */
+@page legal {
+  size: 8.5in 14in;
+  margin: 0.5in;
+}
+
+/* High DPI adjustments */
+@media print and (min-resolution: 300dpi) {
+  .pdf-mode .resume-template {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+}
+
+/* Ensure proper color contrast for printing */
+.pdf-mode {
+  background: white;
+  color: black;
+}
+
+.pdf-mode .text-gray-600,
+.pdf-mode .text-muted-foreground {
+  color: #666 !important;
+}
+
+.pdf-mode .text-gray-500 {
+  color: #777 !important;
+}
+
+.pdf-mode .border {
+  border-color: #ddd !important;
+}
+
+/* Remove any background colors that might interfere */
+.pdf-mode .bg-gray-50,
+.pdf-mode .bg-slate-50,
+.pdf-mode .bg-blue-50 {
+  background: transparent !important;
+}
+
+/* Ensure icons are properly sized */
+.pdf-mode .icon {
+  width: 12pt;
+  height: 12pt;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Optimize for ATS readability */
+.ats-optimized {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 11pt;
+  line-height: 1.3;
+}
+
+.ats-optimized h1,
+.ats-optimized h2,
+.ats-optimized h3 {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ats-optimized .section-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+} 
