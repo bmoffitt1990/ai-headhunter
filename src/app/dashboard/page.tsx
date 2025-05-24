@@ -1,232 +1,372 @@
-'use client';
+"use client"
 
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { Loader2, User, Mail, Calendar, LogOut } from 'lucide-react';
-import { Suspense } from 'react';
+import * as React from "react"
+import { 
+  FileText, 
+  Send, 
+  TrendingUp, 
+  Clock, 
+  Plus, 
+  Upload, 
+  Eye,
+  BarChart3,
+  Users,
+  Calendar
+} from "lucide-react"
 
-function DashboardContent() {
-  const { user, signOut, loading } = useAuth();
-  const router = useRouter();
-  const [isSigningOut, setIsSigningOut] = useState(false);
-  const [mounted, setMounted] = useState(false);
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
+import { MainLayout, PageLayout } from "@/components/layout"
 
-  // Ensure component is mounted before using client-side features
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Client-side authentication protection
-  useEffect(() => {
-    if (mounted && !loading && !user) {
-      router.push('/login?message=Please sign in to access the dashboard');
-    }
-  }, [user, loading, router, mounted]);
-
-  const handleSignOut = async () => {
-    setIsSigningOut(true);
-    try {
-      const result = await signOut();
-      if (!result.error) {
-        router.push('/login');
-      }
-    } catch (error) {
-      console.error('Sign out error:', error);
-    } finally {
-      setIsSigningOut(false);
-    }
-  };
-
-  // Don't render anything until mounted
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
-          <p className="mt-2 text-sm text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
-          <p className="mt-2 text-sm text-gray-600">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Show loading while redirecting unauthenticated users
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
-          <p className="mt-2 text-sm text-gray-600">Redirecting to login...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back!</p>
-            </div>
-            <Button
-              variant="outline"
-              onClick={handleSignOut}
-              disabled={isSigningOut}
-              className="flex items-center gap-2"
-            >
-              {isSigningOut ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <LogOut className="h-4 w-4" />
-              )}
-              Sign Out
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* User Info Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                User Information
-              </CardTitle>
-              <CardDescription>
-                Your account details
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-gray-500" />
-                <span className="text-sm">{user?.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-gray-500" />
-                <span className="text-sm">
-                  Joined {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-gray-500" />
-                <span className="text-sm">ID: {user?.id}</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Quick Actions Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>
-                Get started with your resume
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button className="w-full" onClick={() => router.push('/resume')}>
-                Create Resume
-              </Button>
-              <Button variant="outline" className="w-full" onClick={() => router.push('/test-resume')}>
-                View Templates
-              </Button>
-              <Button variant="outline" className="w-full">
-                Account Settings
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Stats Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Stats</CardTitle>
-              <CardDescription>
-                Resume building progress
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Resumes Created</span>
-                <span className="font-medium">0</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Templates Used</span>
-                <span className="font-medium">0</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Downloads</span>
-                <span className="font-medium">0</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Welcome Message */}
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Welcome to AI Resume Builder</CardTitle>
-            <CardDescription>
-              You&apos;re successfully authenticated! Here&apos;s what you can do next:
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-medium mb-2">Build Your Resume</h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Use our AI-powered tools to create a professional resume that stands out.
-                </p>
-                <Button onClick={() => router.push('/resume')}>
-                  Start Building
-                </Button>
-              </div>
-              <div>
-                <h3 className="font-medium mb-2">Test Resume Templates</h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Explore our resume templates and see how they look with sample data.
-                </p>
-                <Button variant="outline" onClick={() => router.push('/test-resume')}>
-                  View Templates
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
+interface DashboardMetrics {
+  totalResumes: number
+  applicationsSubmitted: number
+  responseRate: number
+  lastActivity: Date
 }
 
-export default function DashboardPage() {
+interface ActivityItem {
+  id: string
+  type: 'resume_edit' | 'application' | 'feedback' | 'interview'
+  title: string
+  description: string
+  timestamp: Date
+  status?: 'completed' | 'pending' | 'in_progress'
+}
+
+// Mock data - replace with actual data fetching
+const mockMetrics: DashboardMetrics = {
+  totalResumes: 3,
+  applicationsSubmitted: 12,
+  responseRate: 25,
+  lastActivity: new Date(),
+}
+
+const mockActivities: ActivityItem[] = [
+  {
+    id: '1',
+    type: 'resume_edit',
+    title: 'Updated Software Engineer Resume',
+    description: 'Added new project and refined skills section',
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    status: 'completed'
+  },
+  {
+    id: '2',
+    type: 'application',
+    title: 'Applied to Tech Corp',
+    description: 'Submitted application for Senior Developer position',
+    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+    status: 'pending'
+  },
+  {
+    id: '3',
+    type: 'interview',
+    title: 'Interview Scheduled',
+    description: 'Video interview with StartupXYZ for Friday 2PM',
+    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+    status: 'in_progress'
+  },
+  {
+    id: '4',
+    type: 'feedback',
+    title: 'Resume Feedback Received',
+    description: 'AI analysis completed with suggestions',
+    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+    status: 'completed'
+  }
+]
+
+/**
+ * MetricCard component for displaying dashboard metrics
+ */
+function MetricCard({ 
+  title, 
+  value, 
+  description, 
+  icon: Icon, 
+  trend,
+  className 
+}: {
+  title: string
+  value: string | number
+  description: string
+  icon: React.ComponentType<{ className?: string }>
+  trend?: { value: number; label: string }
+  className?: string
+}) {
   return (
-    <Suspense 
-      fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
-            <p className="mt-2 text-sm text-gray-600">Loading dashboard...</p>
+    <Card className={className}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium text-muted-foreground">
+          {title}
+        </CardTitle>
+        <Icon className="h-4 w-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">{value}</div>
+        <p className="text-xs text-muted-foreground">
+          {description}
+        </p>
+        {trend && (
+          <div className="flex items-center pt-1">
+            <TrendingUp className="mr-1 h-3 w-3 text-green-500" />
+            <span className="text-xs text-green-500 font-medium">
+              +{trend.value}% {trend.label}
+            </span>
           </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+/**
+ * ActivityFeed component for displaying recent activities
+ */
+function ActivityFeed({ activities }: { activities: ActivityItem[] }) {
+  const getActivityIcon = (type: ActivityItem['type']) => {
+    switch (type) {
+      case 'resume_edit': return FileText
+      case 'application': return Send
+      case 'interview': return Calendar
+      case 'feedback': return BarChart3
+      default: return Clock
+    }
+  }
+
+  const getStatusBadge = (status?: ActivityItem['status']) => {
+    if (!status) return null
+    
+    const variants = {
+      completed: { variant: 'default' as const, label: 'Completed' },
+      pending: { variant: 'secondary' as const, label: 'Pending' },
+      in_progress: { variant: 'outline' as const, label: 'In Progress' }
+    }
+    
+    const config = variants[status]
+    return <Badge variant={config.variant} className="text-xs">{config.label}</Badge>
+  }
+
+  const formatTimeAgo = (date: Date) => {
+    const now = new Date()
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+    
+    if (diffInHours < 1) return 'Just now'
+    if (diffInHours < 24) return `${diffInHours}h ago`
+    
+    const diffInDays = Math.floor(diffInHours / 24)
+    return `${diffInDays}d ago`
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg">Recent Activity</CardTitle>
+        <CardDescription>
+          Your latest actions and updates
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {activities.map((activity) => {
+            const Icon = getActivityIcon(activity.type)
+            return (
+              <div key={activity.id} className="flex items-start space-x-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                  <Icon className="h-4 w-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium text-foreground truncate">
+                      {activity.title}
+                    </p>
+                    <div className="flex items-center space-x-2">
+                      {getStatusBadge(activity.status)}
+                      <span className="text-xs text-muted-foreground whitespace-nowrap">
+                        {formatTimeAgo(activity.timestamp)}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {activity.description}
+                  </p>
+                </div>
+              </div>
+            )
+          })}
         </div>
-      }
+      </CardContent>
+    </Card>
+  )
+}
+
+/**
+ * QuickActions component for common dashboard actions
+ */
+function QuickActions() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg">Quick Actions</CardTitle>
+        <CardDescription>
+          Get started with common tasks
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-3">
+        <Button className="justify-start h-auto p-4" variant="outline">
+          <Plus className="mr-3 h-4 w-4" />
+          <div className="text-left">
+            <div className="font-medium">Create New Resume</div>
+            <div className="text-sm text-muted-foreground">Start from scratch or use a template</div>
+          </div>
+        </Button>
+        
+        <Button className="justify-start h-auto p-4" variant="outline">
+          <Upload className="mr-3 h-4 w-4" />
+          <div className="text-left">
+            <div className="font-medium">Import Resume</div>
+            <div className="text-sm text-muted-foreground">Upload an existing resume to edit</div>
+          </div>
+        </Button>
+        
+        <Button className="justify-start h-auto p-4" variant="outline">
+          <Eye className="mr-3 h-4 w-4" />
+          <div className="text-left">
+            <div className="font-medium">View Applications</div>
+            <div className="text-sm text-muted-foreground">Track your job applications</div>
+          </div>
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
+/**
+ * EmptyState component for new users
+ */
+function EmptyState() {
+  return (
+    <Card className="border-dashed">
+      <CardContent className="flex flex-col items-center justify-center py-16">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
+          <FileText className="h-8 w-8 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold mb-2">Welcome to AI Headhunter</h3>
+        <p className="text-muted-foreground text-center mb-6 max-w-md">
+          Get started by creating your first resume. Our AI will help you craft a professional 
+          resume that stands out to employers.
+        </p>
+        <div className="flex gap-3">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Create Resume
+          </Button>
+          <Button variant="outline">
+            <Upload className="mr-2 h-4 w-4" />
+            Import Resume
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+/**
+ * Dashboard page component
+ */
+export default function DashboardPage() {
+  const [metrics] = React.useState<DashboardMetrics>(mockMetrics)
+  const [activities] = React.useState<ActivityItem[]>(mockActivities)
+  
+  // Check if user is new (has no resumes)
+  const isNewUser = metrics.totalResumes === 0
+
+  return (
+    <MainLayout
+      title="Dashboard"
+      breadcrumbs={[
+        { label: "Dashboard" }
+      ]}
+      showSearch={true}
     >
-      <DashboardContent />
-    </Suspense>
-  );
+      <PageLayout>
+        {isNewUser ? (
+          <EmptyState />
+        ) : (
+          <div className="space-y-6">
+            {/* Metrics Cards */}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <MetricCard
+                title="Total Resumes"
+                value={metrics.totalResumes}
+                description="Created resumes"
+                icon={FileText}
+              />
+              <MetricCard
+                title="Applications"
+                value={metrics.applicationsSubmitted}
+                description="Jobs applied to"
+                icon={Send}
+                trend={{ value: 12, label: "this month" }}
+              />
+              <MetricCard
+                title="Response Rate"
+                value={`${metrics.responseRate}%`}
+                description="Employer responses"
+                icon={TrendingUp}
+                trend={{ value: 5, label: "vs last month" }}
+              />
+              <MetricCard
+                title="Last Activity"
+                value="2h ago"
+                description="Resume updated"
+                icon={Clock}
+              />
+            </div>
+
+            {/* Content Grid */}
+            <div className="grid gap-6 lg:grid-cols-3">
+              {/* Activity Feed - Takes 2/3 width */}
+              <div className="lg:col-span-2">
+                <ActivityFeed activities={activities} />
+              </div>
+              
+              {/* Quick Actions - Takes 1/3 width */}
+              <div>
+                <QuickActions />
+              </div>
+            </div>
+
+            {/* Weekly Progress */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Weekly Progress</CardTitle>
+                <CardDescription>
+                  Your job search activity this week
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Applications Sent</span>
+                    <span className="text-sm text-muted-foreground">3 of 5 goal</span>
+                  </div>
+                  <Progress value={60} className="h-2" />
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Resume Updates</span>
+                    <span className="text-sm text-muted-foreground">2 of 3 goal</span>
+                  </div>
+                  <Progress value={67} className="h-2" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </PageLayout>
+    </MainLayout>
+  )
 } 
